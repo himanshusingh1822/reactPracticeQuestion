@@ -1,0 +1,64 @@
+.modelApp-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    button {
+        width: 20%;
+        background-color: rgb(132, 1, 1);
+        border-radius: 6px;
+        border: none;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        color: whitesmoke;
+        padding: 0.75rem 1rem;
+        margin-top: 1rem;
+        cursor: pointer;
+    }
+}
+
+.modelWrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    inset: 0;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+
+    .model-content {
+        width: 80%;
+        background-color: #252525;
+        color: #e0e0e0;
+        position: relative;
+        padding: .75rem 1rem;
+
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            /* FIXED: Combined translate coordinates with a comma */
+            transform: translate(50%, -50%);
+
+            /* FIXED: Increased size to accommodate the 30px font */
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            border: none;
+            font-size: 24px;
+            /* OPTIMIZED: Slightly smaller for 40px box balance */
+            background-color: #fff;
+            color: #010101;
+            cursor: pointer;
+            padding: 0;
+
+            /* FIXED: Flexbox added to center the inner cross perfectly */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
