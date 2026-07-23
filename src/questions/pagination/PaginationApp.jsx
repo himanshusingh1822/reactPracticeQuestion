@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './pageStyle.css';
 import Card from './Card';
 
@@ -7,12 +7,20 @@ const PaginationApp = () => {
 
     const [product, setProduct] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const [error , setError] = useState(null);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const startIndex = currentPage * PAGE_SIZE;
-    const endIndex = startIndex + PAGE_SIZE;
-    const totalPage = Math.ceil(product.length / PAGE_SIZE);
+
+
+    const totalPage = useMemo(() => {
+        return Math.ceil(product.length / PAGE_SIZE);
+    }, [product.length])
+
+    const slicedProduct = useMemo(() => {
+        const startIndex = currentPage * PAGE_SIZE;
+        const endIndex = startIndex + PAGE_SIZE;
+        return product.slice(startIndex,endIndex);
+    }, [currentPage,product]);
 
     const fetchData = async () => {
         try {
@@ -50,13 +58,13 @@ const PaginationApp = () => {
 
     useEffect(() => {
         fetchData();
-    }, [currentPage]);
+    }, []);
 
-    if(loading){
+    if (loading) {
         return <main><h1>loading...</h1></main>
     };
 
-    if(error){
+    if (error) {
         return <main><h1>{error} </h1></main>
     }
 
@@ -83,7 +91,7 @@ const PaginationApp = () => {
                         <span onClick={handleNext}> ▶️ </span>
                     </div>
 
-                    {product.slice(startIndex, endIndex).map((p, idx) => {
+                    {slicedProduct.map((p, idx) => {
                         return (
                             <div key={idx}>
                                 <Card image={p.thumbnail} title={p.title} />
