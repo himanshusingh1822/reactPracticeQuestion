@@ -4,9 +4,11 @@ import Card from './Card';
 
 const PaginationApp = () => {
     const PAGE_SIZE = 10;
+
     const [product, setProduct] = useState([]);
-    // 1. Fixed the spelling typo in state setter name
     const [currentPage, setCurrentPage] = useState(0);
+    const [error , setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const startIndex = currentPage * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
@@ -14,6 +16,7 @@ const PaginationApp = () => {
 
     const fetchData = async () => {
         try {
+            setLoading(true);
             const response = await fetch('https://dummyjson.com/products', {
                 method: 'GET',
                 headers: {
@@ -21,9 +24,11 @@ const PaginationApp = () => {
                 },
             });
             const data = await response.json();
+            setLoading(false);
             setProduct(data.products);
         } catch (err) {
             console.log(err);
+            setError(err);
         }
     };
 
@@ -46,6 +51,14 @@ const PaginationApp = () => {
     useEffect(() => {
         fetchData();
     }, [currentPage]);
+
+    if(loading){
+        return <main><h1>loading...</h1></main>
+    };
+
+    if(error){
+        return <main><h1>{error} </h1></main>
+    }
 
     return (
         <div>
