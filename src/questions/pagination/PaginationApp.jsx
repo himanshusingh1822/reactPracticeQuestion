@@ -61,7 +61,7 @@ const PaginationApp = () => {
     }, []);
 
     if (loading) {
-        return <main><h1>loading...</h1></main>
+        return <main><div className="loading"></div></main>
     };
 
     if (error) {

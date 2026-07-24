@@ -63,4 +63,19 @@
     color: white;
 }
 
+.loading{
+    height: 50px;
+    width: 50px;
+    border: 10px solid grey;
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin{
+    to{
+        transform: rotate(360 deg);
+    }
+}
+
 
